@@ -58,8 +58,9 @@ const Item = ({item,width}) => {
                           display = "flex"  
                           alignItems="center" 
                           backgroundColor={shades.neutral[100]} 
-                          borderRadius="3px">
-                              <IconButton
+                          borderRadius="3px"
+                          >
+                          <IconButton
                           onClick={() =>
                             setCount(Math.max(count-1,1))
                           }
