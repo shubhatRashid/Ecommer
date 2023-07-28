@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -12,6 +12,8 @@ import Conformation from "./scenes/checkout/Conformation";
 import Navbar from "./scenes/global/Navbar"
 import CartMenu from "./scenes/global/CartMenu";
 import Footer from "./scenes/global/Footer"
+import Authentication from "./scenes/authentication/Authentication"
+
 
 function ScrollToTop(){
   const {pathname} = useLocation();
@@ -21,20 +23,30 @@ function ScrollToTop(){
   return null
 }
 function App() {
+  const [loggedIn,setLoggedIn] = useState(false)
   return (
     <div className="app">
-    <BrowserRouter>
-      <Navbar />
-      <ScrollToTop />
-      <Routes>
-        <Route path = "/" element = {<Home/>}/>
-        <Route path = "item/:itemId" element = {<ItemDetails/>}/>
-        <Route path = "checkout" element = {<Checkout/>}/>
-        <Route path = "checkout/success" element = {<Conformation/>}/>
-      </Routes>
-      <CartMenu/>
-      <Footer />
-    </BrowserRouter>
+        {loggedIn && (
+          <BrowserRouter>
+          <Navbar />
+          <ScrollToTop />
+          <Routes>
+            <Route path = "/" element = {<Home/>}/>
+            <Route path = "item/:itemId" element = {<ItemDetails/>}/>
+            <Route path = "checkout" element = {<Checkout/>}/>
+            <Route path = "checkout/success" element = {<Conformation/>}/>
+          </Routes>
+          <CartMenu/>
+          <Footer />
+        </BrowserRouter>
+        )}
+
+        {!loggedIn && (
+        <div>
+          <Authentication setLoggedIn = {setLoggedIn}/>
+          <Footer />
+        </div>
+        )}
     </div>
   );
 }
