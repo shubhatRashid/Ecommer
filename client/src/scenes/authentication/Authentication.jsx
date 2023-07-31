@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {Box,Typography,TextField,Tabs,Tab,useMediaQuery,Button} from "@mui/material"
+import {Box,Typography,Tabs,Tab,useMediaQuery,Button} from "@mui/material"
 import {Formik} from "formik"
 import {shades} from "../../theme"
 import Login from "./Login"
@@ -7,41 +7,84 @@ import Register from "./Register"
 import * as yup from "yup"
 
 const initialValues = {
-  login:{
-    email:"",
-    password : ""
-  },
-  register:{
     email:"",
     password : "",
     userName : "",
-    confirmPassword : ""
-  },
 } 
 
-const authSchema = [
-  yup.object().shape({
-    login : yup.object().shape({
-      email:yup.string().required("required"),
-      password :yup.string().required("required"),
-    }),
-    register : yup.object().shape({
-      email:yup.string().required("required"),
-      password :yup.string().required("required"),
-      userName :yup.string().required("required"),
-      confirmPassword : yup.string().required("required")
-    })
-  })
-]
+const authSchema = yup.object().shape({
+    password: yup
+    .string()
+    .min(8, 'Password must be 8 characters long')
+    .matches(/[0-9]/, 'Password requires a number')
+    .matches(/[a-z]/, 'Password requires a lowercase letter')
+    .matches(/[A-Z]/, 'Password requires an uppercase letter')
+    .matches(/[^\w]/, 'Password requires a symbol'),
+    email:yup.string().email().required("Please enter an email"),
+    userName :yup.string()
+  });
+
 
 const Authentication = ({setLoggedIn}) => {
   const [value,setValue] = useState("login")
   const isNonMobile = useMediaQuery("(min-width:600px)")
-  const handleChange = (event,newValue) =>{
+
+  const handleTabChange = (event,newValue) =>{
       setValue(newValue);
   }
-  const handleFormSubmit = () => {
+  
+  const handleFormSubmit = async (values,actions) => {
+    
+    if (value === "register"){
+      // SETTING THE REGISTERING LOGIC
+      register(values)
+    }else{
+      // SETTING THE LOGIN LOGIC
+      login(values)
 
+    }
+  }
+
+  async function register(values) {
+    const url = "http://localhost:1337/api/auth/local/register"
+    const user = {
+      username : values.userName,
+      email : values.email,
+      password : values.password
+    }
+    
+    const response = await fetch(url,{
+      method:"POST",
+      headers : {"Content-Type":"application/json"},
+      body: JSON.stringify(user)
+    })
+    const res = await response.json()
+    if (!res.error) {
+      window.alert("successfully registered")
+      setValue("login")
+    }else{
+      window.alert(res.error.message)
+    }
+    
+  }
+  async function login(values) {
+    const url = "http://localhost:1337/api/auth/local"
+    const user = {
+      identifier : values.email,
+      password : values.password
+    }
+    const response = await fetch(url,{
+      method:"POST",
+      headers : {"Content-Type":"application/json"},
+      body: JSON.stringify(user)
+    })
+    const res = await response.json()
+    if (!res.error) {
+      setLoggedIn(true)
+    }else{
+      window.alert(res.error.message)
+    }
+    
   }
   return (
     <Box
@@ -60,7 +103,7 @@ const Authentication = ({setLoggedIn}) => {
         textColor='primary'
         indicatorColor='primary'
         value = {value}
-        onChange={handleChange}
+        onChange={handleTabChange}
         centered
         TabIndicatorProps={{sx:{display:isNonMobile?"block":"none"}}}
         sx={{
@@ -78,7 +121,7 @@ const Authentication = ({setLoggedIn}) => {
           <Formik
             onSubmit={handleFormSubmit}
             initialValues={initialValues}
-            validationSchema={authSchema[0]}
+            validationSchema={authSchema}
           > 
             {({
             values,
@@ -96,6 +139,7 @@ const Authentication = ({setLoggedIn}) => {
             {value === "register" && (
               <Box>
                     <Register 
+                      type = "register"
                       values = {values}
                       errors = {errors}
                       touched = {touched}
@@ -109,6 +153,7 @@ const Authentication = ({setLoggedIn}) => {
             {value === "login" && (
               <Box>
                     <Login 
+                      type = "login"
                       values = {values}
                       errors = {errors}
                       touched = {touched}
@@ -125,21 +170,21 @@ const Authentication = ({setLoggedIn}) => {
               justifyContent="space-between"
               gap="50px"
               >
-              <Button
-                fullWidth
-                type='submit'
-                color='primary'
-                variant='contained'
-                sx={{backgroundColor:shades.primary[400],
-                      boxShadow:"none",
-                      color:"white",
-                      borderRadius: "0",
-                      padding : "15px 40px"}}  
+                <Button
+                  fullWidth
+                  type='submit'
+                  color='primary'
+                  variant='contained'
+                  sx={{backgroundColor:shades.primary[400],
+                        boxShadow:"none",
+                        color:"white",
+                        borderRadius: "0",
+                        padding : "15px 40px"}}  
+                      
+                >
+                      {value === "login"? "Login" : "Register"}
+                </Button>
                     
-              >
-                    {value === "login"? "Login" : "Register"}
-              </Button>
-                   
               </Box>
             </form>
             ) }

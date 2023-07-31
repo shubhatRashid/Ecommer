@@ -43,7 +43,7 @@ function App() {
 
         {!loggedIn && (
         <div>
-          <Authentication setLoggedIn = {setLoggedIn}/>
+          <Authentication setLoggedIn = {() => setLoggedIn(true)}/>
           <Footer />
         </div>
         )}

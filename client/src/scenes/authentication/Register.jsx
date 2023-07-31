@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import {Box,useMediaQuery,TextField} from "@mui/material"
-import { getIn } from 'formik'
 import {InputAdornment, IconButton } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -20,15 +19,7 @@ const Register = (
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
   const [showPassword,setShowPassword] = useState(false)
   const IsNonMobile = useMediaQuery("(min-width:600px)")
-  const formattedName = (field) => `${type}.${field}`;
-  const formattedError = (field) => (
-      Boolean(
-          getIn(touched,formattedName(field)) &&
-          getIn(errors,formattedName(field))
-      ))
-  const formattedHelper = (field) =>
-          getIn(touched,formattedName(field)) &&
-          getIn(errors,formattedName(field))
+
   return (
     <Box
     display="grid"
@@ -45,9 +36,8 @@ const Register = (
         onBlur={handleBlur}
         value = {values.userName}
         onChange={handleChange}
-        name = {formattedName("userName")}
-        errors = {formattedError("userName")}
-        helperText = {formattedHelper("userName")}
+        name = "userName"
+        errors = {errors}
         sx={{gridColumn:"span 4"}}
     />
     <TextField 
@@ -57,11 +47,11 @@ const Register = (
         onBlur={handleBlur}
         value = {values.email}
         onChange={handleChange}
-        name = {formattedName("email")}
-        errors = {formattedError("email")}
-        helperText = {formattedHelper("email")}
+        name = "email"
+        errors = {errors}
         sx={{gridColumn:"span 4"}}
     />
+    {errors.email && <p style={{color:"red"}}>{errors.email}</p>}
 
     <TextField 
         fullWidth
@@ -70,9 +60,8 @@ const Register = (
         onBlur={handleBlur}
         onChange={handleChange}
         value = {values.password}
-        name = {formattedName("password")}
-        errors = {formattedError("password")}
-        helperText = {formattedHelper("password")}
+        name = "password"
+        errors = {errors}
         sx={{gridColumn:"span 4"}}
         InputProps={{ // <-- This is where the toggle button is added.
         endAdornment: (
@@ -88,7 +77,7 @@ const Register = (
     )
   }}
     />
-
+    {errors.password && <p style={{color:"red"}}>{errors.password}</p>}
     </Box>
   )
 }
