@@ -1,7 +1,8 @@
+import { useEffect} from "react";
 import {
   BrowserRouter,
   Routes,
-  Route,
+  Route
 } from "react-router-dom"
 import Home from "./scenes/home/Home"
 import ItemDetails from "./scenes/itemDetails/ItemDetails"
@@ -13,7 +14,13 @@ import Footer from "./scenes/global/Footer"
 import Authentication from "./scenes/authentication/Authentication"
 import {userData } from "./helper"
 const {username} = userData()
+
 function App() { 
+
+  useEffect(() => {
+    window.scrollTo(100,100)
+  }, [])
+
   return (
     <div className="app">
         {username && (

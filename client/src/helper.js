@@ -11,6 +11,5 @@ export const storeUser = (data) => {
 
 export const userData = () => {
     const stringifiedUser = localStorage.getItem("user") || '""'
-    console.log(JSON.parse(stringifiedUser || {}))
     return JSON.parse(stringifiedUser || {})
 }

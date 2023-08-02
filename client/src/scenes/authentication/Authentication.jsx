@@ -81,7 +81,6 @@ const Authentication = () => {
     })
     const res = await response.json()
     if (!res.error) {
-      console.log(res)
       storeUser(res)
       window.location.reload(true);
     }else{
