@@ -1,8 +1,7 @@
 import React ,{useState} from 'react'
 import {Box,InputBase,Divider,Typography,IconButton} from "@mui/material"
 import MarkEmailReadOutlinedIcon from "@mui/icons-material/MarkEmailReadOutlined"
-import {userData} from "../../helper"
-const {name} = userData()
+
 const Subscribe = () => {
   const [email,setEmail] = useState("")
   return (
@@ -22,9 +21,6 @@ const Subscribe = () => {
         and receive $20 coupon for your first order when you checkout
       </Typography>
 
-      <Typography variant='h3'>
-       {name}
-      </Typography>
       <Box
       p = "2px 4px"
       m = "15px auto"

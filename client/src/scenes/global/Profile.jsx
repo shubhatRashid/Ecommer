@@ -1,22 +1,25 @@
 import { Box, Button, Divider, IconButton, Typography } from "@mui/material";
-import { useSelector, useDispatch } from "react-redux";
 import CloseIcon from "@mui/icons-material/Close";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
 import styled from "@emotion/styled";
 import { shades } from "../../theme";
+import {userData }from "../../helper"
 
+
+const {username,email} = userData()
 const FlexBox = styled(Box)`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-const Profile = () => {
- 
+const Profile = ({setClick}) => {
+  const logout = () =>{
+    localStorage.setItem("user","")
+    window.location.reload(true);
+  }
   return (
     <Box
-      display={isCartOpen ? "block" : "none"}
+      display="block"
       backgroundColor="rgba(0, 0, 0, 0.4)"
       position="fixed"
       zIndex={10}
@@ -38,14 +41,38 @@ const Profile = () => {
           {/* HEADER */}
           <FlexBox mb="15px">
             <Typography variant="h3">PROFILE</Typography>
-            <IconButton>
+            <IconButton onClick={() => setClick(false)}>
               <CloseIcon />
             </IconButton>
           </FlexBox>
 
-          {/* PROFILE */}
+          {/* Profile details*/}
           <Box>
-            
+              <Box>
+                <FlexBox p="15px 0">
+                  <Box flex="1 1 40%">
+                    <img
+                      alt={"error"}
+                      width="123px"
+                      height="164px"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI8DK8HCuvWNyHHg8enmbmmf1ue4AeeF3GDw&usqp=CAU"
+                    />
+                  </Box>
+                  <Box flex="1 1 60%">
+                    <FlexBox mb="5px">
+                      <Typography fontWeight="bold">
+                        {username}
+                      </Typography>
+                    </FlexBox>
+                    <Typography>{email}</Typography>
+                  </Box>
+                </FlexBox>
+                <Divider />
+              </Box>
+          </Box>
+
+          {/* ACTIONS */}
+          <Box m="20px 0">
             <Button
               sx={{
                 backgroundColor: shades.primary[400],
@@ -55,6 +82,7 @@ const Profile = () => {
                 padding: "20px 40px",
                 m: "20px 0",
               }}
+              onClick={() => {logout()}}
             >
               LOG OUT
             </Button>

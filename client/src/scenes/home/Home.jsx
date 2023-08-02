@@ -4,7 +4,7 @@ import ShoppingList from "./ShoppingList"
 import Subscribe from "./Subscribe"
 const Home = () => {
   return (
-    <div className='home'>
+    <div>
      <MainCarousel />
      <ShoppingList />
      <Subscribe />

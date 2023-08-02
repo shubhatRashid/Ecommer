@@ -1,9 +1,7 @@
-import { useEffect,useState } from "react";
 import {
   BrowserRouter,
   Routes,
   Route,
-  useLocation
 } from "react-router-dom"
 import Home from "./scenes/home/Home"
 import ItemDetails from "./scenes/itemDetails/ItemDetails"
@@ -13,23 +11,14 @@ import Navbar from "./scenes/global/Navbar"
 import CartMenu from "./scenes/global/CartMenu";
 import Footer from "./scenes/global/Footer"
 import Authentication from "./scenes/authentication/Authentication"
-
-
-function ScrollToTop(){
-  const {pathname} = useLocation();
-  useEffect(()=>{
-    window.scroll(0,0)
-  },[pathname])
-  return null
-}
-function App() {
-  const [loggedIn,setLoggedIn] = useState(false)
+import {userData } from "./helper"
+const {username} = userData()
+function App() { 
   return (
     <div className="app">
-        {loggedIn && (
+        {username && (
           <BrowserRouter>
           <Navbar />
-          <ScrollToTop />
           <Routes>
             <Route path = "/" element = {<Home/>}/>
             <Route path = "item/:itemId" element = {<ItemDetails/>}/>
@@ -41,9 +30,9 @@ function App() {
         </BrowserRouter>
         )}
 
-        {!loggedIn && (
+        {!username && (
         <div>
-          <Authentication setLoggedIn = {() => setLoggedIn(true)}/>
+          <Authentication />
           <Footer />
         </div>
         )}

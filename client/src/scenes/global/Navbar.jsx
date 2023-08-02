@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {useDispatch,useSelector} from "react-redux"
 import {Badge,Box,IconButton} from "@mui/material"
 import {
@@ -16,7 +16,10 @@ import {useNavigate} from "react-router-dom"
 import {shades} from "../../theme"
 import{ motion} from "framer-motion"
 import {setIsCartOpen} from "../../state"
+import Profile from "./Profile"
+
 const Navbar = () => {
+  const [click,setClick] = useState(false)
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const cart = useSelector((state) => state.cart.cart)
@@ -60,7 +63,7 @@ const Navbar = () => {
                     <SearchOutlined/>
                   </IconButton>
 
-                  <IconButton sx={{color:"black"}}>
+                  <IconButton sx={{color:"black"}} onClick={() => setClick(true)} >
                     <PersonOutline/>
                   </IconButton>
 
@@ -86,8 +89,10 @@ const Navbar = () => {
                   </IconButton>
 
             </motion.Box>
-
       </Box>
+      {click && (
+              <Profile setClick = {() => setClick(false)}/>
+            )}
     </Box>
   )
 }

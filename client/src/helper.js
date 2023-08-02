@@ -2,7 +2,8 @@ export const storeUser = (data) => {
     localStorage.setItem(
         "user",
         JSON.stringify({
-            username: data.username,
+            username: data.user.username,
+            email:data.user.email,
             jwt: data.jwt
         })
     )

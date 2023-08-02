@@ -5,6 +5,7 @@ import {shades} from "../../theme"
 import Login from "./Login"
 import Register from "./Register"
 import * as yup from "yup"
+import {storeUser} from "../../helper"
 
 const initialValues = {
     email:"",
@@ -25,7 +26,7 @@ const authSchema = yup.object().shape({
   });
 
 
-const Authentication = ({setLoggedIn}) => {
+const Authentication = () => {
   const [value,setValue] = useState("login")
   const isNonMobile = useMediaQuery("(min-width:600px)")
 
@@ -80,12 +81,15 @@ const Authentication = ({setLoggedIn}) => {
     })
     const res = await response.json()
     if (!res.error) {
-      setLoggedIn(true)
+      console.log(res)
+      storeUser(res)
+      window.location.reload(true);
     }else{
       window.alert(res.error.message)
     }
     
   }
+
   return (
     <Box
     width = "80%"
