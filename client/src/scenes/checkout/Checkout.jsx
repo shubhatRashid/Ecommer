@@ -9,7 +9,7 @@ import {shades} from "../../theme"
 import {loadStripe} from "@stripe/stripe-js"
 
 const stripePromise = loadStripe(
-  "pk_test_51NXckGSCrn8a8nz7FdwsjcGyoq58mDSHWdLoeR3vzXNIIgonfSACqOPSUdX37YXpbDM16SIynFgSonD18qNLbTWH00Z2JRZZTD"
+  "pk_test_51NbhOQSHvdzb7xGEKuWhNaA5jmFlJBJjw8XL0JSxcX6snm9nN7EzWMz34luD0ZrmXMnhmRNZSI4IfNCwTu0gIUqg00Lgusf7dU"
 )
 const initialValues = {
   billingAddress:{
@@ -97,11 +97,10 @@ const Checkout = () => {
 
   const handleFormSubmit = async (values,actions) => {
     setActiveStep(activeStep + 1);
-
     // copy billing address as shipping address
     if (isFirstStep && values.shippingAddress.isSameAddress){
-      actions.setFieldValue("billingAddress",{
-        ...values.shippingAddress,
+      actions.setFieldValue("shippingAddress",{
+        ...values.billingAddress,
         isSameAddress : true
       })
     }
@@ -114,20 +113,20 @@ const Checkout = () => {
   async function makePayment(values) {
       const stripe = await stripePromise
       const requestBody = {
-        userName : [values.firstName, values.lastName].join(" "),
+        userName : [values.billingAddress.firstName, values.billingAddress.lastName].join(" "),
         email : values.email,
         products: cart.map(({id,count}) => ({
           id,
           count,
         }))
       }
-
-      const response = await fetch("http://localhost:1337/api/orders",{
+      const response = await fetch(`${process.env.REACT_APP_STRAPI_URL}/api/orders`,{
         method:"POST",
         headers : {"Content-Type":"application/json"},
         body: JSON.stringify(requestBody)
       })
       const session = await response.json()
+      console.log(session)
       await stripe.redirectToCheckout({
         sessionId:session.id
       })
