@@ -47,7 +47,7 @@ const Authentication = () => {
   }
 
   async function register(values) {
-    const url = "http://localhost:1337/api/auth/local/register"
+    const url = `${process.env.REACT_APP_STRAPI_URL}/api/auth/local/register`
     const user = {
       username : values.userName,
       email : values.email,
@@ -69,7 +69,7 @@ const Authentication = () => {
     
   }
   async function login(values) {
-    const url = "http://localhost:1337/api/auth/local"
+    const url = `${process.env.REACT_APP_STRAPI_URL}/api/auth/local`
     const user = {
       identifier : values.email,
       password : values.password

@@ -21,7 +21,7 @@ const Item = ({item,width}) => {
     data : {
       attributes : {
         formats: {
-          medium : {url},
+          small : {url},
         }
       }
     }
@@ -36,8 +36,8 @@ const Item = ({item,width}) => {
             >
               <img 
                 alt = {item.name}
-                width = "300px"
-                height = "400px"
+                width = "250px"
+                height = "250px"
                 src = {process.env.REACT_APP_STRAPI_URL + url}
                 onClick={() => navigate(`/item/${item.id}`)}
                 style = {{cursor:"pointer"}}

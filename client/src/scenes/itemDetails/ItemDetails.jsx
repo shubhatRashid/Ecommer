@@ -63,7 +63,7 @@ const ItemDetails = () => {
             alt = {item?.name}
             width="100%"
             height = "80%"
-            src={`${process.env.REACT_APP_STRAPI_URL}${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
+            src={`${process.env.REACT_APP_STRAPI_URL}${item?.attributes?.image?.data?.attributes?.formats?.small?.url}`}
             style={{objectFit:"contain"}}
           />
         </Box>
