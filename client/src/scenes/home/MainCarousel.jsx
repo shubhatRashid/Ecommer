@@ -35,7 +35,8 @@ const MainCarousel = () => {
         left: "0",
         color : "white",
         padding:"5px",
-        zIndex:"10"
+        zIndex:"10",
+        backgroundColor:"black"
         }}>
         <NavigateBeforeIcon sx={{fontSize: "40"}}/>
       </IconButton>
@@ -49,7 +50,8 @@ const MainCarousel = () => {
         right: "0",
         color : "white",
         padding:"5px",
-        zIndex:"10"}
+        zIndex:"10",
+        backgroundColor:"black"}
       }>
         <NavigateNextIcon sx={{fontSize: "40"}}/> 
       </IconButton>
@@ -61,9 +63,8 @@ const MainCarousel = () => {
                 src = {texture}
                 alt = {`carousel-${index}`}
                 style = {{
-                  width : "100%",
-                  height : "700px",
-                  objectFit: "cover",
+                  width : "80%",
+                  height : IsNonMobile?"600px":"400px",
                   backgroundAttachment : "fixed"
                 }}
               />
