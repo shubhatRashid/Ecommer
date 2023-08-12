@@ -19,14 +19,10 @@ const Item = ({item,width}) => {
   const {catagory,price,name,image} = item.attributes
   const {
     data : {
-      attributes : {
-        formats: {
-          small : {url},
-        }
-      }
+      attributes : {url}
     }
   } = image
-
+  console.log(url)
   return (
     <Box  width = {width}>
           <Box 
@@ -38,7 +34,7 @@ const Item = ({item,width}) => {
                 alt = {item.name}
                 width = "250px"
                 height = "250px"
-                src = {process.env.REACT_APP_STRAPI_URL + url}
+                src = {url}
                 onClick={() => navigate(`/item/${item.id}`)}
                 style = {{cursor:"pointer"}}
               />

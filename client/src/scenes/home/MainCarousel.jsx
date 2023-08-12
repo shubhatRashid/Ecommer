@@ -32,7 +32,7 @@ const MainCarousel = () => {
       sx={{
         position:"absolute",
         top: "50%",
-        left: "0",
+        left: IsNonMobile?"5%":"2%",
         color : "white",
         padding:"5px",
         zIndex:"10",
@@ -47,7 +47,7 @@ const MainCarousel = () => {
       sx={
         {position:"absolute",
         top: "50%",
-        right: "0",
+        right: IsNonMobile?"5%":"2%",
         color : "white",
         padding:"5px",
         zIndex:"10",
