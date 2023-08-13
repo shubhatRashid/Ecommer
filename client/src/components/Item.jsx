@@ -16,13 +16,14 @@ const Item = ({item,width}) => {
   const {
     palette : {neutral},
   } = useTheme()
+  console.log(item)
   const {catagory,price,name,image} = item.attributes
   const {
     data : {
       attributes : {url}
     }
   } = image
-  console.log(url)
+ 
   return (
     <Box  width = {width}>
           <Box 

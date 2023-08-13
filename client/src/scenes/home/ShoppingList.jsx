@@ -14,12 +14,11 @@ const ShoppingList = () => {
     }
 async function getItems()  {
     const items = await fetch(
-        `${process.env.REACT_APP_STRAPI_URL}/api/items?populate=image`,
+        `${process.env.REACT_APP_STRAPI_URL}/api/items?populate=*`,
         {method:"GET"}
     )
     const itemsJson = await items.json()
     dispatch(setItems(itemsJson.data))
-    console.log(itemsJson.data)
 }
 useEffect(() => {
     getItems() 
