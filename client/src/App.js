@@ -15,16 +15,19 @@ import Authentication from "./scenes/authentication/Authentication"
 import {userData } from "./helper"
 const {username} = userData()
 
-function App() { 
-
+const ScrollToTop = () => {
   useEffect(() => {
     window.scrollTo(100,100)
   }, [])
+  return null
+}
+function App() { 
 
   return (
     <div className="app">
         {username && (
           <BrowserRouter>
+          <ScrollToTop />
           <Navbar />
           <Routes>
             <Route path = "/" element = {<Home/>}/>
