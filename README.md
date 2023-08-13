@@ -1,4 +1,7 @@
-![image](https://github.com/shubhatRashid/Ecommer/assets/106548827/e16e34df-f900-48db-9254-ed2f722dbb94)
+![image](https://github.com/shubhatRashid/Ecommer/assets/106548827/821ba8dc-4a59-4839-b3f1-5041c4d105a5)
+![image](https://github.com/shubhatRashid/Ecommer/assets/106548827/bd73a544-1b59-478c-ad7f-fd2ed28c6b02)
+
+
 
 
 # Ecommer
