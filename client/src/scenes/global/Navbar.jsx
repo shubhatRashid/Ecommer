@@ -58,8 +58,8 @@ const Navbar = () => {
              justifyContent="space-between"
              columnGap="20px"
              zIndex="2"
-            >
-                  <IconButton sx={{color:"black"}}>
+            >       
+                  <IconButton sx={{color:"black"}} onClick={() => alert("clicked")}>
                     <SearchOutlined/>
                   </IconButton>
 
