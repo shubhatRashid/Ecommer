@@ -6,7 +6,7 @@
 
 # Ecommer
 * This README provides essential information and instructions for setting up, deploying, and using the Ecommerce WebApp developed with Strapi, React, PostgreSQL, and Stripe for payment processing.
-* check live version @ : https://ecommershubhat.netlify.app/
+* check live version @ : https://ecommer-beta.vercel.app/
 
 ## Table of Contents
 
