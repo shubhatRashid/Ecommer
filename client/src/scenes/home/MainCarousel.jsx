@@ -65,7 +65,8 @@ const MainCarousel = () => {
                 style = {{
                   width : "80%",
                   height : IsNonMobile?"600px":"400px",
-                  backgroundAttachment : "fixed"
+                  backgroundAttachment : "fixed",
+                  borderRadius:"10px"
                 }}
               />
               <Box

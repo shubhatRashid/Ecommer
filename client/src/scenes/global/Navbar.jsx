@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {useDispatch,useSelector} from "react-redux"
-import {Badge,Box,IconButton} from "@mui/material"
+import {Badge,Box,IconButton,TextField} from "@mui/material"
+import Close from "@mui/icons-material/Close"
 import {
   headContainerAnimation,
   slideAnimation
@@ -19,7 +20,9 @@ import {setIsCartOpen} from "../../state"
 import Profile from "./Profile"
 
 const Navbar = () => {
-  const [click,setClick] = useState(false)
+  const [clickProfile,setClickProfile] = useState(false)
+  const [clickSearch,setClickSearch] = useState(false)
+  const [search,setSearch] = useState('')
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const cart = useSelector((state) => state.cart.cart)
@@ -52,18 +55,35 @@ const Navbar = () => {
               ECOMMER
             </motion.Box>
 
-            <motion.Box
+            {clickSearch && 
+            <Box width="90%" display="flex" justifyContent="center" alignItems="center">
+              <TextField 
+                  fullWidth
+                  size='small'
+                  type='text'
+                  placeholder='search ...'
+                  name='search'
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+              />
+              <IconButton onClick={() => setClickSearch(false)}>
+                <Close/>
+              </IconButton>
+            </Box>
+            }
+
+            {!clickSearch && <motion.Box
             {...slideAnimation("down")}
-             display="flex"
+             display={'flex'}
              justifyContent="space-between"
              columnGap="20px"
              zIndex="2"
             >       
-                  <IconButton sx={{color:"black"}} onClick={() => alert("clicked")}>
+                  {!clickSearch && <IconButton sx={{color:"black"}} onClick={() => setClickSearch(true)}>
                     <SearchOutlined/>
-                  </IconButton>
+                  </IconButton>}
 
-                  <IconButton sx={{color:"black"}} onClick={() => setClick(true)} >
+                  <IconButton sx={{color:"black"}} onClick={() => setClickProfile(true)} >
                     <PersonOutline/>
                   </IconButton>
 
@@ -88,10 +108,10 @@ const Navbar = () => {
                     <MenuOutlined/>
                   </IconButton>
 
-            </motion.Box>
+            </motion.Box>}
       </Box>
-      {click && (
-              <Profile setClick = {() => setClick(false)}/>
+      {clickProfile && (
+              <Profile setClick = {() => setClickProfile(false)}/>
             )}
     </Box>
   )
